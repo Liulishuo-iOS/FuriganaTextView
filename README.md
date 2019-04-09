@@ -1,4 +1,5 @@
 # FuriganaTextView
+
 A simple wrapper view for UITextView that can display Furiganas.
 
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -7,7 +8,7 @@ A simple wrapper view for UITextView that can display Furiganas.
 
 ## Install
 
-#### Install using Carthage
+### Install using Carthage
 
 `FuriganaTextView` has been tested to work well with [Carthage](https://github.com/Carthage/Carthage). To install using Carthage:
 
@@ -51,7 +52,7 @@ furiganaTextView.contentView?.backgroundColor = UIColor.lightGray
 
 ## Requirements
 
-* Builds with __Xcode 8__ and __Swift 3__
+* Builds with __Xcode 10.2__ and __Swift 5__
 * Supports __iOS 7 and above__
 
 ## Why not CTRubyAnnotation and CoreText

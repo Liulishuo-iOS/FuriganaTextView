@@ -23,7 +23,9 @@ public struct Furigana
   }
 }
 
-public let kFuriganaAttributeName = "com.liulishuo.Furigana"
+extension NSAttributedString.Key {
+    static let Furigana = NSAttributedString.Key(rawValue: "com.liulishuo.Furigana")
+}
 
 private let kFuriganaRepresentationFormatter = "|"
 
@@ -52,12 +54,12 @@ private let kCharLength = 1
 public extension NSString
 {
   
-  public func substringAtIndex(_ index: Int) -> String
+    func substringAtIndex(_ index: Int) -> String
   {
     return substring(with: NSMakeRange(index, kCharLength))
   }
 
-  public func filteredString(_ predicateBlock: (NSString) -> Bool) -> NSString
+    func filteredString(_ predicateBlock: (NSString) -> Bool) -> NSString
   {
     var result = ""
     
@@ -71,7 +73,7 @@ public extension NSString
     return result as NSString
   }
   
-  public func enumerateCharacters(_ enumeration: (Int, NSString) -> Void)
+    func enumerateCharacters(_ enumeration: (Int, NSString) -> Void)
   {
     for i in 0..<length
     {
