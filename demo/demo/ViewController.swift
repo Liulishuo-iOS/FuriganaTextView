@@ -59,18 +59,18 @@ extension ViewController
   // Because we are using NSAttributedString as contents,
   // most builtin attributes (e.g. NSFontAttributeName, NSForegroundColorAttributeName) will work just fine.
   fileprivate var exampleContents: NSAttributedString {
-    let contents = NSMutableAttributedString(string: "田中さん、中華料理を食べたことありますか。\n\n", attributes: [NSFontAttributeName : exampleFont])
-    contents.addAttribute(NSForegroundColorAttributeName, value: UIColor.darkGray, range: NSMakeRange(0, 2))
-    contents.addAttribute(NSForegroundColorAttributeName, value: UIColor.red, range: NSMakeRange(5, 2))
-    contents.addAttribute(NSForegroundColorAttributeName, value: UIColor.brown, range: NSMakeRange(7, 2))
-    contents.addAttribute(NSForegroundColorAttributeName, value: UIColor.green, range: NSMakeRange(10, 1))
+    let contents = NSMutableAttributedString(string: "田中さん、中華料理を食べたことありますか。\n\n", attributes: [NSAttributedString.Key.font : exampleFont])
+    contents.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.darkGray, range: NSMakeRange(0, 2))
+    contents.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: NSMakeRange(5, 2))
+    contents.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.brown, range: NSMakeRange(7, 2))
+    contents.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.green, range: NSMakeRange(10, 1))
     
-    contents.append(NSAttributedString(string: "すみません。靴売り場はどこですか。\n\n", attributes: [NSFontAttributeName : exampleFontSansSerif]))
-    contents.addAttribute(NSForegroundColorAttributeName, value: UIColor.purple, range: NSMakeRange(29, 1))
-    contents.addAttribute(NSForegroundColorAttributeName, value: UIColor.orange, range: NSMakeRange(30, 3))
+    contents.append(NSAttributedString(string: "すみません。靴売り場はどこですか。\n\n", attributes: [NSAttributedString.Key.font : exampleFontSansSerif]))
+    contents.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.purple, range: NSMakeRange(29, 1))
+    contents.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.orange, range: NSMakeRange(30, 3))
     
-    contents.append(NSAttributedString(string: "サーモン刺身、哺乳綱ネコ目（食肉目狐）イヌ科イヌ亜科の一部。\n\n", attributes: [NSFontAttributeName : exampleFontSansSerif]))
-    contents.addAttribute(NSForegroundColorAttributeName, value: UIColor.orange, range: NSMakeRange(59, 1))
+    contents.append(NSAttributedString(string: "サーモン刺身、哺乳綱ネコ目（食肉目狐）イヌ科イヌ亜科の一部。\n\n", attributes: [NSAttributedString.Key.font : exampleFontSansSerif]))
+    contents.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.orange, range: NSMakeRange(59, 1))
     
     return contents;
   }

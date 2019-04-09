@@ -12,24 +12,24 @@ class FuriganaWordKerner: NSObject, NSLayoutManagerDelegate
 {
   
   // MARK: - NSLayoutManager Delegate
-  
-  func layoutManager(_ layoutManager: NSLayoutManager, shouldGenerateGlyphs glyphs: UnsafePointer<CGGlyph>, properties props: UnsafePointer<NSGlyphProperty>, characterIndexes charIndexes: UnsafePointer<Int>, font aFont: UIFont, forGlyphRange glyphRange: NSRange) -> Int
+    
+    func layoutManager(_ layoutManager: NSLayoutManager, shouldGenerateGlyphs glyphs: UnsafePointer<CGGlyph>, properties props: UnsafePointer<NSLayoutManager.GlyphProperty>, characterIndexes charIndexes: UnsafePointer<Int>, font aFont: UIFont, forGlyphRange glyphRange: NSRange) -> Int
   {
     let glyphCount = glyphRange.length
     let textStorageString = layoutManager.textStorage!.string as NSString
-    var newProps: UnsafeMutablePointer<NSGlyphProperty>? = nil
+    var newProps: UnsafeMutablePointer<NSLayoutManager.GlyphProperty>? = nil
     
     for i in 0..<glyphCount
     {
       let charIndex = charIndexes[i]
-      if let _ = layoutManager.textStorage!.attribute(kFuriganaAttributeName, at: charIndex, effectiveRange: nil) as? NSString
+        if let _ = layoutManager.textStorage!.attribute(NSAttributedString.Key.Furigana, at: charIndex, effectiveRange: nil) as? NSString
       {
         if textStorageString.substringAtIndex(charIndex) == kDefaultFuriganaKerningControlCharacter
         {
           if newProps == nil
           {
-            let memSize = Int(MemoryLayout<NSGlyphProperty>.size * glyphCount)
-            newProps = unsafeBitCast(malloc(memSize), to: UnsafeMutablePointer<NSGlyphProperty>.self)
+            let memSize = Int(MemoryLayout<NSLayoutManager.GlyphProperty>.size * glyphCount)
+            newProps = unsafeBitCast(malloc(memSize), to: UnsafeMutablePointer<NSLayoutManager.GlyphProperty>.self)
             memcpy(newProps, props, memSize)
           }
           
@@ -50,9 +50,9 @@ class FuriganaWordKerner: NSObject, NSLayoutManagerDelegate
     }
   }
   
-  func layoutManager(_ layoutManager: NSLayoutManager, shouldUse action: NSControlCharacterAction, forControlCharacterAt charIndex: Int) -> NSControlCharacterAction
+    func layoutManager(_ layoutManager: NSLayoutManager, shouldUse action: NSLayoutManager.ControlCharacterAction, forControlCharacterAt charIndex: Int) -> NSLayoutManager.ControlCharacterAction
   {
-    if layoutManager.textStorage!.attribute(kFuriganaAttributeName, at: charIndex, effectiveRange: nil) != nil
+    if layoutManager.textStorage!.attribute(NSAttributedString.Key.Furigana, at: charIndex, effectiveRange: nil) != nil
     {
       return .whitespace
     }
@@ -64,16 +64,16 @@ class FuriganaWordKerner: NSObject, NSLayoutManagerDelegate
   {
     var width: CGFloat = 0
     
-    if let furiganaAttributeValue = layoutManager.textStorage?.attribute(kFuriganaAttributeName, at: charIndex, effectiveRange: nil) as? NSString
+    if let furiganaAttributeValue = layoutManager.textStorage?.attribute(NSAttributedString.Key.Furigana, at: charIndex, effectiveRange: nil) as? NSString
     {
       if let furiganaText = FuriganaTextFromStringRepresentation(furiganaAttributeValue),
          let originalText = FuriganaOriginalTextFromStringrepresentation(furiganaAttributeValue)
       {
-        let originalFont = layoutManager.textStorage!.attribute(NSFontAttributeName, at: charIndex, effectiveRange: nil) as! UIFont
+        let originalFont = layoutManager.textStorage!.attribute(NSAttributedString.Key.font, at: charIndex, effectiveRange: nil) as! UIFont
         let furiganaFont = originalFont.withSize(originalFont.pointSize / kDefaultFuriganaFontMultiple)
         
-        let originalWidth = originalText.size(attributes: [NSFontAttributeName : originalFont]).width
-        let furiganaWidth = furiganaText.size(attributes: [NSFontAttributeName : furiganaFont]).width
+        let originalWidth = originalText.size(withAttributes: [NSAttributedString.Key.font : originalFont]).width
+        let furiganaWidth = furiganaText.size(withAttributes: [NSAttributedString.Key.font : furiganaFont]).width
         
         width = ceil((furiganaWidth - originalWidth) / 2)
         if width < 0
@@ -90,7 +90,7 @@ class FuriganaWordKerner: NSObject, NSLayoutManagerDelegate
   {
     var longestEffectiveRange: NSRange = NSMakeRange(0, 0)
     if let textStorage = layoutManager.textStorage,
-       let _ = textStorage.attribute(kFuriganaAttributeName, at: charIndex, longestEffectiveRange: &longestEffectiveRange, in: NSMakeRange(0, textStorage.length)) as? NSString
+        let _ = textStorage.attribute(NSAttributedString.Key.Furigana, at: charIndex, longestEffectiveRange: &longestEffectiveRange, in: NSMakeRange(0, textStorage.length)) as? NSString
     {
       return charIndex == longestEffectiveRange.location
     }

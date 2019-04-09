@@ -87,7 +87,7 @@ open class FuriganaTextView: UIView
       let paragrapStyle = NSMutableParagraphStyle()
       paragrapStyle.alignment = alignment
       paragrapStyle.lineHeightMultiple = furiganaTextStyle.hostingLineHeightMultiple
-      validContents.addAttribute(NSParagraphStyleAttributeName, value: paragrapStyle, range: fullTextRange)
+        validContents.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragrapStyle, range: fullTextRange)
       
       let textStorage = NSTextStorage(attributedString: validContents)
       textStorage.addLayoutManager(layoutManager)
@@ -197,7 +197,7 @@ extension FuriganaTextView
             furiganaRange.location += inserted
           }
           
-          validContents.addAttribute(kFuriganaAttributeName, value: furiganaValue, range: furiganaRange)
+            validContents.addAttribute(NSAttributedString.Key.Furigana, value: furiganaValue, range: furiganaRange)
         }
         
         let fullTextRange = NSMakeRange(0, (validContents.string as NSString).length)
